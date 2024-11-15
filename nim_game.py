@@ -6,60 +6,61 @@ def minimax(pile, is_maximizing):
     # this func returns the max/min score
     # check for empty pile 
         # pile == 0, player = X
-        # player x is winner because player y took the last item the turn before
+        # player y is winner because player y took the last item the turn before
     if pile == 0:
-        return 1 if is_maximizing else -1
+        return 1 if is_maximizing == False else -1
     
     # loop to go through all potential takes 
     if is_maximizing: 
-        scores = 0 
+        scores = [None]  
         for take in range(1, min(pile, 3) + 1):
             # min = 1
             # max = 3 =< plie 
-            scores = [minimax(pile - take, is_maximizing=False)]
+            scores.append(minimax(pile - take, is_maximizing=False))
         return max(scores)
     else:
-        score = 0 # or '- inf'
-        for take in range(1, min(pile, 3) + 1):
-            # min = 1
-            # max = 3 =< plie 
-            minimax(pile - take, is_maximizing=True)
+        scores = [None] 
+        for take in range(1, min(pile, 3) + 1): 
+            scores.append(minimax(pile - take, is_maximizing=True))
         return min(scores)
+
+    # transform the score into a take
+
 
 def move(pile, is_maximizing): 
     if is_maximizing: 
-        # minimax ...
-        pass
+        take = minimax(pile, is_maximizing)
     else: 
         print(f'The current pile has {pile} items.' )
         valid_take = False
         while valid_take == False: 
-            take = input('How much do you want to take?: ')
+            take_options = [take in range(1, min(pile, 3) + 1)]
+            take = int(input(f'Select a take: {take_options} '))
                 # form a list with options that the user has with nice formating
             if take in range(1, min(pile, 3) + 1):
                 return valid_take == True
             else:
                 print('Your input was invalid. Please try again.')
-    pile = pile - take
-    if pile == 0:
-        if is_maximizing:
-            winner = 'user'
-        else: 
-            winner = 'computer'
-    # create a game loop in the game func
+    pile = pile - take # return pile?
 
-
-
-def game():
-    # intro
+def intro():
     print('Welcome to NIM!')
     print('Do you really think you can beat the computer?')
     print('Ha Ha Ha')
     print("Let's go!")
 
+def rules():
+    print('''Game Rules:
+- there are a certain amount of items in a pile
+- each player take minimally one time and maximally 3 times per turn
+- the game ends when the pile reaches zero items 
+- the player that takes the last item of the pile wins
+          ''')
+
+def game():
     # var
-    pile = 12 
-    is_maximizing = False 
+    pile = 12 # random pile selection
+              # avoiding the pile amount that was chosen before
     winner = None
 
     # game loop
@@ -72,12 +73,30 @@ def game():
     else:
         print('Congrates, you won this game.')
 
+# first game
+    # having the intro & rules just once
+intro()
+rules()
+
 # super game loop
+is_maximizing = False 
 while True: 
     game()
-    play_again = input('Do you want to play again? (y/n): ')
-    if play_again == 'y':
-        continue
-    else:
-        break 
+    play_again = None
+    while play_again == None: 
+        play_again = input('Do you want to play again? (y/n): ')
+        if play_again == 'y':
+            # between each game alternate the starting player 
+            if is_maximizing:
+                is_maximizing = False 
+            else:
+                is_maximizing = True 
+            continue
+        elif play_again == 'n':
+            break # or retur False
+        else: 
+            print('Your input was unvalid. Please try again.')
+            play_again = None
+
+    
     
