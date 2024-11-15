@@ -12,36 +12,58 @@ def minimax(pile, is_maximizing):
     
     # loop to go through all potential takes 
     if is_maximizing: 
-        scores = [None]  
+        scores = []  # super_list
         for take in range(1, min(pile, 3) + 1):
             # min = 1
             # max = 3 =< plie 
-            scores.append(minimax(pile - take, is_maximizing=False))
-        return max(scores)
+            scores.append((minimax(pile - take, is_maximizing=False))(take))
+        return max(scores) # ((x)(y))
     else:
-        scores = [None] 
+        scores = [] 
         for take in range(1, min(pile, 3) + 1): 
-            scores.append(minimax(pile - take, is_maximizing=True))
+            scores.append((minimax(pile - take, is_maximizing=True))(take))
         return min(scores)
 
     # transform the score into a take
+    # dictionary seems to be reasonable or tuple 
+    # tuple = (0,0)
+    # super_list = [(0,0), (1,0), (0,1)]
+    # print(super_list[1][0]) -> "1" = take 
 
+    # setting
+        # ((take)(score))
+    # creation
+        # simple a super_list
+        # append simply the tuple -> easy
+    # access -> ok 
+    # switching to ((score)(take)) should make the max/min search simpler 
 
 def move(pile, is_maximizing): 
     if is_maximizing: 
-        take = minimax(pile, is_maximizing)
+        score_take = minimax(pile, is_maximizing)
+        for x in range(1,2):
+            take = x 
     else: 
         print(f'The current pile has {pile} items.' )
         valid_take = False
         while valid_take == False: 
-            take_options = [take in range(1, min(pile, 3) + 1)]
-            take = int(input(f'Select a take: {take_options} '))
+            # take_options = [(take for take in range(1, min(pile, 3) + 1))]
+            take_options = []
+            for x in range(1, min(pile, 3) + 1):
+                take_options.append(x)
+            take = int(input(f'Select a take: {take_options}: '))
                 # form a list with options that the user has with nice formating
             if take in range(1, min(pile, 3) + 1):
-                return valid_take == True
+                # valid_take = True 
+                # return valid_take
+                # return True
+                # Once a return statement is executed, the function exits, and any code after it will not run.
+                valid_take = True
             else:
                 print('Your input was invalid. Please try again.')
     pile = pile - take # return pile?
+    # print('valid input')
+    return pile
 
 def intro():
     print('Welcome to NIM!')
@@ -62,10 +84,15 @@ def game():
     pile = 12 # random pile selection
               # avoiding the pile amount that was chosen before
     winner = None
+    is_maximizing = False
 
     # game loop
     while pile != 0:
         move(pile, is_maximizing)
+        if is_maximizing:
+            is_maximizing = False
+        else:
+            is_maximizing = True 
 
     # end 
     if winner == is_maximizing: 

@@ -26,3 +26,11 @@ Larger-Scale Setup: For more complex versions, the game might start with larger 
 Custom Configurations: Some players enjoy experimenting with different pile counts and object amounts to explore unique strategies. For instance, the “Misère” version of Nim (where the goal is to avoid taking the last object) can make even simple configurations more challenging.
 
 The choice of pile amounts can change the complexity and length of a Nim game, but the aim is often to allow a fair amount of strategy without the game becoming overwhelming.
+
+# optimize later one -> real python guide
+
+# current
+check the minimax()
+    where is the mistake (list?, tuple?)
+
+)
