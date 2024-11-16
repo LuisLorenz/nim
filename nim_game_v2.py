@@ -1,80 +1,45 @@
-# player
-    # is_maximizing -> computer player
-    # is minimizing -> human best player 
+
+# is_maximizing -> computer player
+# is minimizing -> human best player 
 
 def minimax(pile, is_maximizing):
-    # this func returns the max/min score
-    # check for empty pile 
-        # pile == 0, player = X
-        # player y is winner because player y took the last item the turn before
     if pile == 0:
-        return 1 if is_maximizing == False else -1
+        return (1 if is_maximizing == False else -1, None) 
     
-    # loop to go through all potential takes 
     if is_maximizing: 
-        scores = []  # super_list
+        scores = []  
         for take in range(1, (min(pile, 3) + 1)):
-            # min = 1
-            # max = 3 =< plie 
-            score = ((minimax(pile - take, is_maximizing=False)),(take))
-            print(score)
-            scores.append(((minimax(pile - take, is_maximizing=False)),(take)))
-            # ((x)(y))
-        print(scores)
+            result, _ = minimax(pile - take, is_maximizing=False)
+            score = (result, take)
+            scores.append(score)
         return max(scores, key=lambda x: x[0]) 
-    
-    # max_element = max(your_list, key=lambda x: x[0])
-    #   max() on first element of the tuple [x[0]]
 
     else:
         scores = [] 
         for take in range(1, (min(pile, 3) + 1)): 
-            score = ((minimax(pile - take, is_maximizing=False)),(take))
-            print(score)
-            scores.append(((minimax(pile - take, is_maximizing=True)),(take)))
-        print(scores)
+            result, _ = minimax(pile - take, is_maximizing=True)
+            score = (result, take)
+            scores.append(score)
         return min(scores, key=lambda x: x[0]) 
-
-    # transform the score into a take
-    # dictionary seems to be reasonable or tuple 
-    # tuple = (0,0)
-    # super_list = [(0,0), (1,0), (0,1)]
-    # print(super_list[1][0]) -> "1" = take 
-
-    # setting
-        # ((take)(score))
-    # creation
-        # simple a super_list
-        # append simply the tuple -> easy
-    # access -> ok 
-    # switching to ((score)(take)) should make the max/min search simpler 
 
 def move(pile, is_maximizing): 
     if is_maximizing: 
-        score_take = minimax(pile, is_maximizing)
-        for x in range(1,2):
-            take = x 
+        best_move = minimax(pile, is_maximizing)
+        take = best_move[1]
+        return take
     else: 
         print(f'The current pile has {pile} items.' )
         valid_take = False
         while valid_take == False: 
-            # take_options = [(take for take in range(1, min(pile, 3) + 1))]
             take_options = []
             for x in range(1, min(pile, 3) + 1):
                 take_options.append(x)
             take = int(input(f'Select a take: {take_options}: '))
-                # form a list with options that the user has with nice formating
             if take in range(1, min(pile, 3) + 1):
-                # valid_take = True 
-                # return valid_take
-                # return True
-                # Once a return statement is executed, the function exits, and any code after it will not run.
                 valid_take = True
+                return take
             else:
                 print('Your input was invalid. Please try again.')
-    pile = pile - take # return pile?
-    # print('valid input')
-    # return pile
 
 def intro():
     print('Welcome to NIM!')
@@ -99,14 +64,15 @@ def game():
 
     # game loop
     while pile != 0:
-        move(pile, is_maximizing)
+        take = move(pile, is_maximizing)
+        pile = pile - take 
         if is_maximizing:
             is_maximizing = False
         else:
             is_maximizing = True 
 
     # end 
-    if winner == is_maximizing: 
+    if not is_maximizing: 
         print("I'm sorry, you lost the game!")
     else:
         print('Congrates, you won this game.')
@@ -117,8 +83,9 @@ intro()
 rules()
 
 # super game loop
-is_maximizing = False 
-while True: 
+is_maximizing = False
+super_loop = True 
+while super_loop == True: 
     game()
     play_again = None
     while play_again == None: 
@@ -131,7 +98,7 @@ while True:
                 is_maximizing = True 
             continue
         elif play_again == 'n':
-            break # or retur False
+            super_loop = False
         else: 
             print('Your input was unvalid. Please try again.')
             play_again = None
