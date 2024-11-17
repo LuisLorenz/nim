@@ -26,6 +26,7 @@ def move(pile, is_maximizing):
     if is_maximizing: 
         best_move = minimax(pile, is_maximizing)
         take = best_move[1]
+        print(f'The computer has taken {take}.')
         return take
     else: 
         print(f'The current pile has {pile} items.' )

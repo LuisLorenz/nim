@@ -33,4 +33,4 @@ The choice of pile amounts can change the complexity and length of a Nim game, b
 check the minimax()
     where is the mistake (list?, tuple?)
 
-)
+https://realpython.com/python-minimax-nim/

@@ -1,3 +1,6 @@
+import time
+import random
+
 # player
     # is_maximizing -> computer player
     # is minimizing -> human best player 
@@ -16,11 +19,9 @@ def minimax(pile, is_maximizing):
         for take in range(1, (min(pile, 3) + 1)):
             # min = 1
             # max = 3 =< plie 
-            score = ((minimax(pile - take, is_maximizing=False)),(take))
-            print(score)
-            scores.append(((minimax(pile - take, is_maximizing=False)),(take)))
-            # ((x)(y))
-        print(scores)
+            result = minimax(pile - take, is_maximizing=False)
+            score = (result, take) # ((x)(y))
+        print(score)
         return max(scores, key=lambda x: x[0]) 
     
     # max_element = max(your_list, key=lambda x: x[0])
@@ -78,8 +79,11 @@ def move(pile, is_maximizing):
 
 def intro():
     print('Welcome to NIM!')
+    time.sleep(0.2)
     print('Do you really think you can beat the computer?')
+    time.sleep(0.2)
     print('Ha Ha Ha')
+    time.sleep(0.2)
     print("Let's go!")
 
 def rules():
