@@ -1,5 +1,6 @@
 import time
 import random
+import sys
 
 # player
     # is_maximizing -> computer player
@@ -87,7 +88,7 @@ def intro():
     print("Let's go!")
 
 def rules():
-    print('''Game Rules:
+    print('''Here are the rule: 
 - there are a certain amount of items in a pile
 - each player take minimally one time and maximally 3 times per turn
 - the game ends when the pile reaches zero items 

@@ -1,3 +1,6 @@
+import time
+import random
+import sys
 
 # is_maximizing -> computer player
 # is minimizing -> human best player 
@@ -42,19 +45,31 @@ def move(pile, is_maximizing):
             else:
                 print('Your input was invalid. Please try again.')
 
-def intro():
-    print('Welcome to NIM!')
-    print('Do you really think you can beat the computer?')
-    print('Ha Ha Ha')
-    print("Let's go!")
+class flow_writing:
+    def __init__(self, text):
+        for char in text:
+            sys.stdout.write(char)
+            sys.stdout.flush()
+            time.sleep(0.05)
 
-def rules():
-    print('''Game Rules:
+        if char in ".!?":
+            time.sleep(0.5) 
+        print(' ') # adding a new row
+
+intro = '''
+Welcome to NIM!
+Do you really think you can beat the computer?
+Ha Ha Ha
+Let's go!
+'''
+
+rules = """
+Here are the rules 
 - there are a certain amount of items in a pile
 - each player take minimally one time and maximally 3 times per turn
 - the game ends when the pile reaches zero items 
 - the player that takes the last item of the pile wins
-          ''')
+"""
 
 def game():
     # var
@@ -80,8 +95,9 @@ def game():
 
 # first game
     # having the intro & rules just once
-intro()
-rules()
+
+flow_intro = flow_writing(intro)
+flow_rules = flow_writing(rules)
 
 # super game loop
 is_maximizing = False
