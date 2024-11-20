@@ -73,6 +73,9 @@ Here are the rules
 
 def game():
     # var
+    global score_player_1, score_player_2
+        # global var
+            # so when I change the value of the var in this func the value is changed globally (even outside this func)
     pile = 12 # random pile selection
               # avoiding the pile amount that was chosen before
     winner = None
@@ -80,6 +83,7 @@ def game():
 
     # game loop
     while pile != 0:
+        
         take = move(pile, is_maximizing)
         pile = pile - take 
         if is_maximizing:
@@ -90,20 +94,34 @@ def game():
     # end 
     if not is_maximizing: 
         print("I'm sorry, you lost the game!")
+        score_player_2 += 1 
     else:
         print('Congrates, you won this game.')
+        score_player_1 += 1
+
+score_player_1 = 0 
+score_player_2 = 0 
+
+def score_board():
+    print(f"""
+score board: 
+  player 1: {score_player_1}
+  player 2: {score_player_2}
+""")
+
 
 # first game
     # having the intro & rules just once
 
-flow_intro = flow_writing(intro)
-flow_rules = flow_writing(rules)
+# flow_intro = flow_writing(intro)
+# flow_rules = flow_writing(rules)
 
 # super game loop
 is_maximizing = False
 super_loop = True 
 while super_loop == True: 
     game()
+    score_board()
     play_again = None
     while play_again == None: 
         play_again = input('Do you want to play again? (y/n): ')

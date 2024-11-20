@@ -7,8 +7,10 @@
 -[ ] player vs player choice 
 -[ ] record counter
 -[ ] changing rules (randomly)
+    - making it harder with time pressure to force people to make a quick decision
 -[ ] smartening up the code ... 
--[ ]
+-[ ] implement illustrations with o's as item amount in pile
+    - also items of player for a different rule set
 -[ ]
 -[ ]
 

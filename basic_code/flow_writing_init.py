@@ -5,7 +5,7 @@ class flow_writing:
     def __init__(self, text):
         for char in text:
             sys.stdout.write(char)
-            sys.stdout.flush()
+            sys.stdout.flush() # for real time output 
             time.sleep(0.05)
 
             if char in ".!?":
