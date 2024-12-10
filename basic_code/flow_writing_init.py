@@ -14,7 +14,9 @@ class flow_writing:
 
 
 text = 'Hello my friend ...'
-introduction = flow_writing(text)
+# introduction = flow_writing(text)
+
+flow_writing(text)
 
 text = 'Long it has been ...'
 main = flow_writing(text)

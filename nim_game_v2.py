@@ -32,7 +32,10 @@ def move(pile, is_maximizing):
         print(f'The computer has taken {take}.')
         return take
     else: 
-        print(f'The current pile has {pile} items.' )
+        text_current_pile = f'The current pile has {pile} items ...'
+        flow_writing(text_current_pile)
+
+        # print(f'The current pile has {pile} items.' )
         valid_take = False
         while valid_take == False: 
             take_options = []
@@ -52,24 +55,9 @@ class flow_writing:
             sys.stdout.flush()
             time.sleep(0.05)
 
-        if char in ".!?":
-            time.sleep(0.5) 
+            if char in ".!?":
+                time.sleep(0.2) 
         print(' ') # adding a new row
-
-intro = '''
-Welcome to NIM!
-Do you really think you can beat the computer?
-Ha Ha Ha
-Let's go!
-'''
-
-rules = """
-Here are the rules 
-- there are a certain amount of items in a pile
-- each player take minimally one time and maximally 3 times per turn
-- the game ends when the pile reaches zero items 
-- the player that takes the last item of the pile wins
-"""
 
 def game():
     # var
@@ -109,12 +97,18 @@ score board:
   player 2: {score_player_2}
 """)
 
+intro = '''
+Welcome to NIM! ...
+Do you really think you can beat the computer? ...
+HA HA HA ...
+Let's go! ...
+These are the rules ... 
+>> Minimal take is 1 element ...
+>> Maximal take are 3 elements ...
+>> The player who takes the last element wins ... 
+'''
 
-# first game
-    # having the intro & rules just once
-
-# flow_intro = flow_writing(intro)
-# flow_rules = flow_writing(rules)
+# flow_writing(intro)
 
 # super game loop
 is_maximizing = False
