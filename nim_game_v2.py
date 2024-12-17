@@ -5,6 +5,9 @@ import sys
 # is_maximizing -> computer player
 # is minimizing -> human best player 
 
+
+
+
 def minimax(pile, is_maximizing):
     if pile == 0:
         return (1 if is_maximizing == False else -1, None) 
@@ -51,7 +54,8 @@ def move(pile, is_maximizing):
                 valid_take = True
                 return take
             else:
-                text_invalid = 'Your input was invalid. Please try again.'
+                text_invalid = '''Your input was invalid ... 
+Please try again ...'''
                 flow_writing(text_invalid)
 
 class flow_writing:
@@ -70,8 +74,12 @@ def game():
     global score_player_1, score_player_2
         # global var
             # so when I change the value of the var in this func the value is changed globally (even outside this func)
-    pile = 12 # random pile selection
+    # pile = 12 # random pile selection
               # avoiding the pile amount that was chosen before
+    min_value = 7
+    max_value = 20
+    pile = random.randint(min_value, max_value)
+    
     winner = None
     is_maximizing = False
 
@@ -87,12 +95,14 @@ def game():
 
     # end 
     if not is_maximizing: 
-        t_loss = "I'm sorry, you lost the game!" 
+        t_loss = """The computer took the last element ...
+I'm sorry, you lost the game!""" 
         flow_writing(t_loss)
         # print("I'm sorry, you lost the game!")
         score_player_2 += 1 
     else:
-        t_win = 'Congrates, you won this game.'
+        t_win = '''You took the last element ...
+Congrates, you won this game!'''
         flow_writing(t_win)
         # print('Congrates, you won this game.')
         score_player_1 += 1
