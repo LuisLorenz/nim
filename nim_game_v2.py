@@ -135,6 +135,21 @@ These are the rules ...
 '''
 
 # flow_writing(intro)
+second_player = None 
+while second_player == None: 
+    second_player_text = """Choose your opponent: ...
+Type '1' for another player ...
+Type '2' for computer ..."""
+    flow_writing(second_player_text)
+    second_player = int(input('>> '))
+    # check if valid 
+    if second_player == 1 or 2: 
+        continue 
+    else: 
+        text_invalid = 'Your input was unvalid. Please try again.'
+        flow_writing(text_invalid)
+        second_player = None 
+
 
 # super game loop
 is_maximizing = False
