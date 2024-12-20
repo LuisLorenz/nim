@@ -6,7 +6,14 @@
 -[x] random pile choice
     - pile_options = [12, 15, 9]
     - better: a radome number in a range (10-20) 
--[ ] player vs player choice 
+
+## plan v3
+-[x] player vs player choice 
+    - choosing between playing again AI or not 
+    - yes or no questition
+            - select "player" or "computer" 
+    - creating game_1 & game_2 would work but would be copy code 
+    - better to have just one game >> better performance 
 -[ ] record counter
 -[ ] changing rules (randomly)
     - making it harder with time pressure to force people to make a quick decision
@@ -15,7 +22,7 @@
     - also items of player for a different rule set
 -[ ] making  the game more challenging with multiple piles
     - research how to make this game more advanced
--[ ]
+-[ ] random player that starts the game 
 
 ... 
 -[ ] giving my code to AI for evaluation and improvement 
