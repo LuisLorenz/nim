@@ -14,12 +14,18 @@
             - select "player" or "computer" 
     - creating game_1 & game_2 would work but would be copy code 
     - better to have just one game >> better performance 
--[ ] record counter
+-[x] record counter
 -[ ] changing rules (randomly)
     - making it harder with time pressure to force people to make a quick decision
 -[ ] smartening up the code ... 
--[ ] implement illustrations with o's as item amount in pile
-    - also items of player for a different rule set
+-[ ] continue here: implement illustrations with o's as item amount in pile
+    - pile of 7:
+        ooooo oo
+    - pile of 15:
+        ooooo ooooo ooooo
+
+        for x in pile:
+            print('o')
 -[ ] making  the game more challenging with multiple piles
     - research how to make this game more advanced
 -[ ] random player that starts the game 
