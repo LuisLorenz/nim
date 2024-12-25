@@ -37,4 +37,4 @@ player 2: {score_player_2}
 pile = 7   
 for x in range(0, pile + 1):
     print('o', end='')
-    
+    # oooooooo%

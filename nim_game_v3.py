@@ -25,6 +25,12 @@ def minimax(pile, is_maximizing):
             scores.append(score)
         return min(scores, key=lambda x: x[0]) 
 
+def pile_illustration(pile):
+    five_elements = pile // 5 
+    single_elements = pile - (5 * five_elements)
+    pile_string = (five_elements * 'ooooo ') + (single_elements * 'o') # improve the illustration
+    return pile_string
+
 def move(pile, is_maximizing, second_player, human_player): 
     if is_maximizing: 
         best_move = minimax(pile, is_maximizing)
@@ -39,6 +45,8 @@ def move(pile, is_maximizing, second_player, human_player):
         else:
             text_current_pile = f'The current pile has {pile} items ...'
             flow_writing(text_current_pile)
+            pile_string = '*** ' + pile_illustration(pile) + ' ***'
+            flow_writing(pile_string)
 
         valid_take = False
         while valid_take == False: 
