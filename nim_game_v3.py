@@ -28,7 +28,9 @@ def minimax(pile, is_maximizing):
 def pile_illustration(pile):
     five_elements = pile // 5 
     single_elements = pile - (5 * five_elements)
-    pile_string = (five_elements * 'ooooo ') + (single_elements * 'o') # improve the illustration
+    pile_string = (five_elements * 'ooooo ') + (single_elements * 'o') 
+    if single_elements != 0: 
+        pile_string += ' '
     return pile_string
 
 def move(pile, is_maximizing, second_player, human_player): 
@@ -45,7 +47,7 @@ def move(pile, is_maximizing, second_player, human_player):
         else:
             text_current_pile = f'The current pile has {pile} items ...'
             flow_writing(text_current_pile)
-            pile_string = '*** ' + pile_illustration(pile) + ' ***'
+            pile_string = '*** ' + pile_illustration(pile) + '***'
             flow_writing(pile_string)
 
         valid_take = False
@@ -192,7 +194,7 @@ Type '2' for COMPUTER ..."""
 is_maximizing = False
 super_loop = True 
 while super_loop == True: 
-    game()
+    game() # choose a random player to start the game 
     score_board(second_player)
     play_again = None
     while play_again == None: 
