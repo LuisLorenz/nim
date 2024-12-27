@@ -83,10 +83,14 @@ def game():
     min_value = 7
     max_value = 20
     pile = random.randint(min_value, max_value)
+    initial_pile = pile 
     
     winner = None
-    is_maximizing = False
-    human_player = "PLAYER 1" 
+
+    human_computer = [True, False]
+    player_player = ["PLAYER 1", "PLAYER 2"]
+    is_maximizing =  random.choice(human_computer)
+    human_player = random.choice(player_player)
 
     while pile != 0:
         
@@ -104,6 +108,13 @@ def game():
             pass
         # mode human player vs computer 
         else: 
+            if is_maximizing == True: 
+                if initial_pile == pile:
+                    text_current_pile = f'The inital pile has {pile} items ...'
+                    flow_writing(text_current_pile)
+                    pile_string = '*** ' + pile_illustration(pile) + '***'
+                    flow_writing(pile_string)
+
             take = move(pile, is_maximizing, second_player, human_player)
             pile = pile - take 
             if is_maximizing:
