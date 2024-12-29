@@ -1,6 +1,7 @@
 import time
 import random
 import sys
+from colorama import Fore, Back, Style
 
 # is_maximizing -> computer player
 # is minimizing -> human best player 
@@ -37,13 +38,17 @@ def move(pile, is_maximizing, second_player, human_player):
     if is_maximizing: 
         best_move = minimax(pile, is_maximizing)
         take = best_move[1]
-        text_computer_take = f'The computer has taken {take} ...'
+        text_computer_take = f'The '+ Fore.MAGENTA  + 'COMPUTER' + Fore.RESET + ' has taken {take} ...'
         flow_writing(text_computer_take)
         return take
     else: 
         if second_player == 1:
             text_player_turn = f"{human_player} is on the turn."
             flow_writing(text_player_turn)
+            text_current_pile = f'The pile has {pile} items ...'
+            flow_writing(text_current_pile)
+            pile_string = '*** ' + pile_illustration(pile) + '***'
+            flow_writing(pile_string)
         else:
             text_current_pile = f'The current pile has {pile} items ...'
             flow_writing(text_current_pile)
@@ -71,10 +76,10 @@ class flow_writing:
         for char in text:
             sys.stdout.write(char)
             sys.stdout.flush()
-            time.sleep(0.05)
+            time.sleep(0.01) # 0.05
 
             if char in ".!?":
-                time.sleep(0.2) 
+                time.sleep(0.01) # 0.2
         print(' ') 
 
 def game():
@@ -101,9 +106,9 @@ def game():
             take = move(pile, is_maximizing, second_player, human_player)
             pile = pile - take 
             if human_player == "PLAYER 1":
-                human_player = "PLAYER 2"
+                human_player = Fore.RED + "PLAYER 2" + Fore.RESET
             else:
-                human_player = "PLAYER 1"
+                human_player = Fore.BLUE + "PLAYER 1" + Fore.RESET
 
             pass
         # mode human player vs computer 
@@ -191,8 +196,8 @@ These are the rules ...
 second_player = None 
 while second_player == None: 
     second_player_text = """Choose your OPPONENT: ...
-Type '1' for HUMAN ...
-Type '2' for COMPUTER ..."""
+Type '1' for """ +Fore.BLUE + "HUMAN" + Fore.RESET + """ ...
+Type '2' for """ + Fore.MAGENTA  + "COMPUTER" + Fore.RESET + " ..."
     flow_writing(second_player_text)
     second_player = int(input('>> '))
     if second_player == 1 or 2: 
