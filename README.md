@@ -28,6 +28,9 @@
 -[x] making  the game more challenging with multiple piles
     - research how to make this game more advanced
 -[x] random player that starts the game 
+-[ ] bug fixing: mode = 1, alternating player, improve illustration
 -[ ] better illustration: using colors (for the player that has its turn etc.)
+    - players 
+    - ideally pile illustration
 ... 
 -[ ] giving my code to AI for evaluation and improvement 

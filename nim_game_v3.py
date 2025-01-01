@@ -34,16 +34,16 @@ def pile_illustration(pile):
         pile_string += ' '
     return pile_string
 
-def move(pile, is_maximizing, second_player, human_player): 
+def move(pile, is_maximizing, second_player, player_turn): 
     if is_maximizing: 
         best_move = minimax(pile, is_maximizing)
         take = best_move[1]
-        text_computer_take = f'The '+ Fore.MAGENTA  + 'COMPUTER' + Fore.RESET + ' has taken {take} ...'
+        text_computer_take = 'The '+ Fore.MAGENTA  + 'COMPUTER' + Fore.RESET + f' has taken {take} ...'
         flow_writing(text_computer_take)
         return take
     else: 
         if second_player == 1:
-            text_player_turn = f"{human_player} is on the turn."
+            text_player_turn = f"{player_turn} is on the turn."
             flow_writing(text_player_turn)
             text_current_pile = f'The pile has {pile} items ...'
             flow_writing(text_current_pile)
@@ -92,23 +92,32 @@ def game():
     
     winner = None
 
-    human_computer = [True, False]
-    player_player = ["PLAYER 1", "PLAYER 2"]
-    is_maximizing =  random.choice(human_computer)
-    human_player = random.choice(player_player)
+    # understandable varibales 
+    human__vs_computer = [True, False]
+    human_vs_human = ["PLAYER 1", "PLAYER 2"]
+    player_turn = None
+    is_maximizing = None 
+
+    # random starting player
+    if second_player == 1:  
+        player_turn = random.choice(human_vs_human)
+    else: 
+        is_maximizing = random.choice(human__vs_computer)
+  
 
     while pile != 0:
         
         # mode human player vs human player
         if second_player == 1: 
 
-            # player 1 starts 
-            take = move(pile, is_maximizing, second_player, human_player)
+            
+
+            take = move(pile, is_maximizing, second_player, player_turn)
             pile = pile - take 
-            if human_player == "PLAYER 1":
-                human_player = Fore.RED + "PLAYER 2" + Fore.RESET
+            if player_turn == "PLAYER 1":
+                player_turn = Fore.RED + "PLAYER 2" + Fore.RESET
             else:
-                human_player = Fore.BLUE + "PLAYER 1" + Fore.RESET
+                player_turn = Fore.BLUE + "PLAYER 1" + Fore.RESET
 
             pass
         # mode human player vs computer 
@@ -120,7 +129,7 @@ def game():
                     pile_string = '*** ' + pile_illustration(pile) + '***'
                     flow_writing(pile_string)
 
-            take = move(pile, is_maximizing, second_player, human_player)
+            take = move(pile, is_maximizing, second_player, player_turn)
             pile = pile - take 
             if is_maximizing:
                 is_maximizing = False
@@ -128,7 +137,7 @@ def game():
                 is_maximizing = True 
 
     if second_player == 1: 
-        if human_player == "PLAYER 1":
+        if player_turn == "PLAYER 1":
             t_win = '''PLAYER 2 took the last element ...
 And won this game, congrates! ...'''
             flow_writing(t_win)
@@ -192,7 +201,7 @@ These are the rules ...
 >> The player who takes the last element wins ... 
 '''
 
-# flow_writing(intro)
+# choosing a game mode 
 second_player = None 
 while second_player == None: 
     second_player_text = """Choose your OPPONENT: ...
@@ -210,7 +219,7 @@ Type '2' for """ + Fore.MAGENTA  + "COMPUTER" + Fore.RESET + " ..."
 is_maximizing = False
 super_loop = True 
 while super_loop == True: 
-    game() # choose a random player to start the game 
+    game() 
     score_board(second_player)
     play_again = None
     while play_again == None: 
@@ -218,6 +227,8 @@ while super_loop == True:
         flow_writing(text_play_again) 
         play_again = input('>> ')
         if play_again == 'y':
+
+            # is this for changing the player? No necessary anymore? 
             if is_maximizing:
                 is_maximizing = False 
             else:
