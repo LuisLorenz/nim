@@ -101,6 +101,13 @@ def game():
     # random starting player
     if second_player == 1:  
         player_turn = random.choice(human_vs_human)
+
+        #here I can change the color depending on the outcome
+        if player_turn == "PLAYER 1":
+            player_turn = Fore.BLUE + "PLAYER 1" + Fore.RESET
+        if player_turn == "PLAYER 2":
+            player_turn = Fore.RED + "PLAYER 2" + Fore.RESET
+
     else: 
         is_maximizing = random.choice(human__vs_computer)
   
@@ -114,7 +121,7 @@ def game():
 
             take = move(pile, is_maximizing, second_player, player_turn)
             pile = pile - take 
-            if player_turn == "PLAYER 1":
+            if player_turn == Fore.BLUE + "PLAYER 1" + Fore.RESET: # var must be in the same color and style to be really the same 
                 player_turn = Fore.RED + "PLAYER 2" + Fore.RESET
             else:
                 player_turn = Fore.BLUE + "PLAYER 1" + Fore.RESET
