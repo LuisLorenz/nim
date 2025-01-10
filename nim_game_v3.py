@@ -26,13 +26,38 @@ def minimax(pile, is_maximizing):
             scores.append(score)
         return min(scores, key=lambda x: x[0]) 
 
+# def pile_illustration(pile):
+#     five_elements = pile // 5 
+#     single_elements = pile - (5 * five_elements)
+#     pile_string = (five_elements * 'ooooo ') + (single_elements * 'o') 
+#     if single_elements != 0: 
+#         pile_string += ' '
+#     return pile_string
+
 def pile_illustration(pile):
     five_elements = pile // 5 
     single_elements = pile - (5 * five_elements)
-    pile_string = (five_elements * 'ooooo ') + (single_elements * 'o') 
-    if single_elements != 0: 
-        pile_string += ' '
+    # pile_string = (five_elements * 'ooooo ') + (single_elements * 'o') 
+    # if single_elements != 0: 
+    #     pile_string += ' '
+   
+    # adding the color before the string is combined seems to be a good approach 
+    # if statements seem to help here quite well I think 
+    if five_elements == 1:
+        pile_string = Fore.RED + 'ooooo ' + Fore.MAGENTA + single_elements * 'o' + Fore.RESET
+    elif five_elements == 2:
+        pile_string = Fore.RED + 'ooooo ' + Fore.MAGENTA + 'ooooo ' + Fore.BLUE + single_elements * 'o' + Fore.RESET
+    elif five_elements == 3:
+        pile_string = Fore.RED + 'ooooo ' + Fore.MAGENTA + 'ooooo ' + Fore.BLUE + 'ooooo ' + Fore.GREEN + single_elements * 'o' + Fore.RESET
+    elif five_elements == 4:
+        pile_string = Fore.RED + 'ooooo ' + Fore.MAGENTA + 'ooooo ' + Fore.BLUE + 'ooooo ' + Fore.GREEN + 'ooooo ' + Fore.RESET
+    elif five_elements == 0:
+        pile_string = Fore.RED + single_elements * 'o' + Fore.RESET
     return pile_string
+
+
+        
+
 
 def move(pile, is_maximizing, second_player, player_turn): 
     if is_maximizing: 
@@ -86,7 +111,8 @@ def game():
     global score_player_1, score_player_2, score_human_player, score_computer_player
         
     min_value = 7
-    max_value = 20
+    max_value = 20 
+        # pile: ooooo (red) ooooo (orange) ooooo (lila) ooooo (blue)
     pile = random.randint(min_value, max_value)
     initial_pile = pile 
     
@@ -145,24 +171,24 @@ def game():
 
     if second_player == 1: 
         if player_turn == "PLAYER 1":
-            t_win = '''PLAYER 2 took the last element ...
+            t_win = Fore.RED + 'PLAYER 2 ' + Fore.RESET + '''took the last element ...
 And won this game, congrates! ...'''
             flow_writing(t_win)
             score_player_2 += 1
         else: 
-            t_win = '''PLAY 1 took the last element ...
+            t_win = Fore.BLUE + 'PLAYER 1 ' + Fore.RESET + '''took the last element ...
 And won this game, congrates! ...'''
             flow_writing(t_win)
             score_player_1 += 1
     else:      
         if not is_maximizing: 
-            t_loss = """The COMPUTER took the last element ...
+            t_loss = "The " + Fore.MAGENTA + "COMPUTER " + Fore.RESET + """took the last element ...
 I'm sorry, you lost the game!""" 
             flow_writing(t_loss)
             
             score_computer_player += 1 
         else:
-            t_win = '''You took the last element ...
+            t_win = Fore.BLUE + 'You ' + Fore.RESET + '''took the last element ...
 Congrates, you won this game!'''
             flow_writing(t_win)
             
@@ -179,8 +205,8 @@ def score_board(second_player):
 ############################
 
 Score board: 
-PLAYER 1: {score_player_1}
-PLAYER 2: {score_player_2}
+""" + Fore.BLUE + "PLAYER 1" + Fore.RESET + """: {score_player_1}
+""" + Fore.RED + "PLAYER 2" + Fore.RESET + """: {score_player_2}
 
 ############################
 """
@@ -189,8 +215,8 @@ PLAYER 2: {score_player_2}
 ############################
 
 Score board: 
-HUMAN: {score_human_player}
-COMPUTER: {score_computer_player}
+""" + Fore.BLUE + "HUMAN" + Fore.RESET + """: {score_human_player}
+""" + Fore.MAGENTA + "COMPUTER" + Fore.RESET + """: {score_computer_player}
 
 ############################
 """
